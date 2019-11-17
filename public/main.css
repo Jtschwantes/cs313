@@ -1,0 +1,11 @@
+body {
+    background-image: url('./usps.jpg');
+    background-repeat: no-repeat, no-repeat;
+}
+
+p {
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    color: #aa2222;
+}
+

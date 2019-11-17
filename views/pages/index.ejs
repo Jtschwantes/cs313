@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
+        <link rel="stylesheet" type="text/css" href="main.css">
 </head>
 
 <body>
 <form action="/getRate" method="POST">
-    Weight of the item: <input type="text" name="weight"/>
+    <p>Weight of the item: <input type="text" name="weight"/>
     <select name="type">
         <option value="ls">Letters (Stamped)</option>
         <option value="lm">Letters (Metered)</option>
@@ -13,6 +14,7 @@
         <option value="fc">First-Class Package Service--Retail</option>
     </select>
     <input type="submit" value="Submit"/>
+    </p>
 </form>
 
 </body>
