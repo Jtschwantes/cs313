@@ -4,11 +4,15 @@
 </head>
 
 <body>
-
-Hello World!
-
-<form>
-    Weight of the item: <input type="text"/>
+<form action="/getRate" method="POST">
+    Weight of the item: <input type="text" name="weight"/>
+    <select name="type">
+        <option value="ls">Letters (Stamped)</option>
+        <option value="lm">Letters (Metered)</option>
+        <option value="le">Large Envelopes (Flats)</option>
+        <option value="fc">First-Class Package Service--Retail</option>
+    </select>
+    <input type="submit" value="Submit"/>
 </form>
 
 </body>
