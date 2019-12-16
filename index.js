@@ -54,7 +54,7 @@ const server = express()
             // const results = { 'results': (result) ? result.rows : null };
             const results = result.rows;
             //   res.render('pages/db', results );
-            res.send(results);
+            res.send(typeof(results));
             client.release();
         } catch (err) {
             console.error(err);
@@ -67,7 +67,7 @@ const server = express()
             const client = await pool.connect()
             const result = await client.query('SELECT * FROM post');
             // const results = { 'results': (result) ? result.rows : null };
-            const results = JSON.parse(result.rows);
+            const results = result.rows;
             //   res.render('pages/db', results );
             const item = results.where(i => i.id == id);
             res.send(item);
