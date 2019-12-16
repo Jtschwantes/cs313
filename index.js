@@ -37,9 +37,8 @@ const server = express()
             const client = await pool.connect()
             const result = await client.query('SELECT * FROM post');
             // const results = { 'results': (result) ? result.rows : null };
-            const results = result.rows;
             //   res.render('pages/db', results );
-            res.send(results)
+            res.send(result.rows)
             client.release();
         } catch (err) {
             console.error(err);
@@ -48,7 +47,22 @@ const server = express()
     })
     .get('/items/:id', (req, res) => {
         const id = req.params.id;
-        const item = data.find(i => i.id === id);
+
+        try {
+            const client = await pool.connect()
+            const result = await client.query('SELECT * FROM post');
+            // const results = { 'results': (result) ? result.rows : null };
+            const results = result.rows;
+            //   res.render('pages/db', results );
+            res.send(results)
+            client.release();
+        } catch (err) {
+            console.error(err);
+            res.send(err);
+        }
+
+        const item = results.where(i => i.id == id);
+        
         if (item) {
             res.json(item);
         } else {
