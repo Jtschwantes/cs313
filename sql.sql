@@ -1,15 +1,15 @@
 CREATE TABLE post (
     id SERIAL PRIMARY KEY,
-    title VARCHAR(256) NOT NULL,
+    title VARCHAR(255) NOT NULL,
     -- points INT NOT NULL,
-    body VARCHAR(4000) NOT NULL,
+    body VARCHAR(4000) NOT NULL
     -- userId INT NOT NULL REFERENCES user(id)
 );
 
 CREATE TABLE comment (
     id SERIAL PRIMARY KEY,
     -- points INT NOT NULL,
-    body VARCHAR(4000) NOT NULL,
+    body VARCHAR(4000) NOT NULL
     -- userId INT NOT NULL REFERENCES user(id)
 );
 

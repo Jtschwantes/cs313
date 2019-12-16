@@ -31,6 +31,7 @@ const server = express()
 
     .get('/', (req, res) => res.render('pages/index'))
     .get('/error', (req, res) => res.render('pages/error.ejs'))
+    
     .get('/items', (req, res) => {
         res.json(data);
     })
@@ -88,13 +89,13 @@ const server = express()
     .get('/db', async (req, res) => {
         try {
           const client = await pool.connect()
-          const result = await client.query('SELECT * FROM *');
+          const result = await client.query('SELECT title FROM post');
           const results = { 'results': (result) ? result.rows : null};
           res.render('pages/db', results );
           client.release();
         } catch (err) {
           console.error(err);
-          res.send("Error " + err);
+          res.send(err);
         }
       })
 
