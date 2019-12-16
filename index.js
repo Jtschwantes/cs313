@@ -78,11 +78,11 @@ const server = express()
             throw err;
         }
 
-        if (item) {
-            res.json(item);
-        } else {
-            res.json({ message: `item ${id} doesn't exist`})
-        }
+        // if (item) {
+        //     res.json(item);
+        // } else {
+        //     res.json({ message: `item ${id} doesn't exist`})
+        // }
     })
     .post("/items", (req, res) => {
         let search = url.parse(req.url).search.slice(1)
