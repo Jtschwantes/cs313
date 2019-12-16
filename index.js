@@ -69,6 +69,7 @@ const server = express()
             // const results = { 'results': (result) ? result.rows : null };
             let results = result.rows;
             console.log(results)
+            console.log(JSON.stringify(results));
             results = JSON.parse(results);
             // const item = results.where(i => i.id == id);
             res.send(item);
