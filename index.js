@@ -21,6 +21,21 @@ let data = require('./data.js'); ///index.js
 //     else res.render('pages/error.ejs', {weight, name})
 // }
 
+async function getDbRows() {
+    try {
+        const client = await pool.connect()
+        const result = await client.query('SELECT * FROM post');
+        // const results = { 'results': (result) ? result.rows : null };
+        const results = result.rows;
+        //   res.render('pages/db', results );
+        client.release();
+        return results.rows;
+    } catch (err) {
+        console.error(err);
+        throw err;
+    }
+}
+
 const server = express()
     .use(express.static(path.join(__dirname, 'public')))
     // .use(bodyParser.urlencoded({ extended: true }))
@@ -47,21 +62,8 @@ const server = express()
     })
     .get('/items/:id', async (req, res) => {
         const id = req.params.id;
-
-        try {
-            const client = await pool.connect()
-            const result = await client.query('SELECT * FROM post');
-            // const results = { 'results': (result) ? result.rows : null };
-            const results = result.rows;
-            //   res.render('pages/db', results );
-            res.send(results)
-            client.release();
-        } catch (err) {
-            console.error(err);
-            res.send(err);
-        }
-
-        const item = results.where(i => i.id == id);
+        results = getDbRows();
+        const item = results.where(i => i.id === id);
 
         if (item) {
             res.json(item);
