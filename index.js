@@ -53,7 +53,7 @@ const server = express()
     .get('/items/:id', async (req, res) => {
         const id = req.params.id;
         const results = await getDbRows().rows;
-        const item = results.where(i => i.id === id);
+        const item = results.where(i => i.id == id);
 
         if (item) {
             res.json(item);
