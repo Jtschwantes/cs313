@@ -32,7 +32,7 @@ const server = express()
     .get('/', (req, res) => res.render('pages/index'))
     .get('/error', (req, res) => res.render('pages/error.ejs'))
 
-    .get('/items', (req, res) => {
+    .get('/items', async (req, res) => {
         try {
             const client = await pool.connect()
             const result = await client.query('SELECT * FROM post');
