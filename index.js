@@ -33,7 +33,17 @@ const server = express()
     .get('/error', (req, res) => res.render('pages/error.ejs'))
 
     .get('/items', (req, res) => {
-        res.json(data);
+        try {
+            const client = await pool.connect()
+            const result = await client.query('SELECT * FROM post');
+            const results = { 'results': (result) ? result.rows : null };
+            //   res.render('pages/db', results );
+            res.send(results)
+            client.release();
+        } catch (err) {
+            console.error(err);
+            res.send(err);
+        }
     })
     .get('/items/:id', (req, res) => {
         const id = req.params.id;
@@ -88,16 +98,16 @@ const server = express()
     // .post('/getRate', calculate)
     .get('/db', async (req, res) => {
         try {
-          const client = await pool.connect()
-          const result = await client.query('SELECT * FROM post');
-          const results = { 'results': (result) ? result.rows : null};
-        //   res.render('pages/db', results );
-          res.send(results)
-          client.release();
+            const client = await pool.connect()
+            const result = await client.query('SELECT * FROM post');
+            const results = { 'results': (result) ? result.rows : null };
+            //   res.render('pages/db', results );
+            res.send(results)
+            client.release();
         } catch (err) {
-          console.error(err);
-          res.send(err);
+            console.error(err);
+            res.send(err);
         }
-      })
+    })
 
 server.listen(PORT, () => console.log(`Listening on ${ PORT }`));
