@@ -48,7 +48,18 @@ const server = express()
     .get('/error', (req, res) => res.render('pages/error.ejs'))
 
     .get('/items', async (req, res) => {
-        res.send(getDbRows());
+        try {
+            const client = await pool.connect()
+            const result = await client.query('SELECT * FROM post');
+            // const results = { 'results': (result) ? result.rows : null };
+            const results = JSON.stringify(result.rows);
+            //   res.render('pages/db', results );
+            send(results.rows);
+            client.release();
+        } catch (err) {
+            console.error(err);
+            throw err;
+        }
     })
     .get('/items/:id', async (req, res) => {
         const id = req.params.id;
