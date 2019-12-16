@@ -36,7 +36,8 @@ const server = express()
         try {
             const client = await pool.connect()
             const result = await client.query('SELECT * FROM post');
-            const results = { 'results': (result) ? result.rows : null };
+            // const results = { 'results': (result) ? result.rows : null };
+            const results = result.rows;
             //   res.render('pages/db', results );
             res.send(results)
             client.release();
