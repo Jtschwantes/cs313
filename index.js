@@ -67,7 +67,7 @@ const server = express()
             const client = await pool.connect()
             const result = await client.query('SELECT * FROM post');
             // const results = { 'results': (result) ? result.rows : null };
-            const results = result.rows;
+            const results = JSON.parse(result.rows);
             //   res.render('pages/db', results );
             const item = results.where(i => i.id == id);
             res.send(item);
