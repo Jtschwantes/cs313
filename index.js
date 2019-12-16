@@ -54,7 +54,7 @@ const server = express()
             // const results = { 'results': (result) ? result.rows : null };
             const results = result.rows;
             //   res.render('pages/db', results );
-            res.send(typeof(results));
+            res.send(results);
             client.release();
         } catch (err) {
             console.error(err);
