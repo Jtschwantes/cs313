@@ -45,7 +45,7 @@ const server = express()
             res.send(err);
         }
     })
-    .get('/items/:id', (req, res) => {
+    .get('/items/:id', async (req, res) => {
         const id = req.params.id;
 
         try {
@@ -62,7 +62,7 @@ const server = express()
         }
 
         const item = results.where(i => i.id == id);
-        
+
         if (item) {
             res.json(item);
         } else {
