@@ -69,8 +69,8 @@ const server = express()
             // const results = { 'results': (result) ? result.rows : null };
             let results = result.rows;
             console.log(results)
-            //   res.render('pages/db', results );
-            const item = results.where(i => i.id == id);
+            results = JSON.parse(results);
+            // const item = results.where(i => i.id == id);
             res.send(item);
             client.release();
         } catch (err) {
