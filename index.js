@@ -48,11 +48,11 @@ const server = express()
     .get('/error', (req, res) => res.render('pages/error.ejs'))
 
     .get('/items', async (req, res) => {
-        res.send(getDbRows().rows);
+        res.send(getDbRows());
     })
     .get('/items/:id', async (req, res) => {
         const id = req.params.id;
-        const results = await getDbRows().rows;
+        const results = await getDbRows();
         const item = results.where(i => i.id == id);
 
         if (item) {
