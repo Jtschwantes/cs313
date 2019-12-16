@@ -54,7 +54,7 @@ const server = express()
             // const results = { 'results': (result) ? result.rows : null };
             const results = JSON.stringify(result.rows);
             //   res.render('pages/db', results );
-            send(results.rows);
+            res.send(results.rows);
             client.release();
         } catch (err) {
             console.error(err);
