@@ -68,7 +68,7 @@ const server = express()
             const result = await client.query('SELECT * FROM post');
             // const results = { 'results': (result) ? result.rows : null };
             let results = result.rows;
-            // const item = results.where(i => i.id == id);
+            const item = results.where(i => i.id == id);
             res.send(results[0]);
             client.release();
         } catch (err) {
