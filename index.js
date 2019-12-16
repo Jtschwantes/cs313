@@ -26,7 +26,7 @@ async function getDbRows() {
         const client = await pool.connect()
         const result = await client.query('SELECT * FROM post');
         // const results = { 'results': (result) ? result.rows : null };
-        const results = JSON.stringify(result.rows);
+        const results = result.rows;
         //   res.render('pages/db', results );
         client.release();
         return results;
