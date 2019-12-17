@@ -87,7 +87,7 @@ const server = express()
         // return updated list
         res.json(data);
     })
-    .put("/items/:id", (req, res) => {
+    .put("/items/:id", async (req, res) => {
         const id = req.params.id;
 
         const item = data.find(i => i.id === id);
@@ -110,7 +110,7 @@ const server = express()
 
         res.json(data);
     })
-    .delete("/items/:id", (req, res) => {
+    .delete("/items/:id", async (req, res) => {
         try {
             const client = await pool.connect()
             const result = await client.query(`DELETE FROM post WHERE id = ${id}`);
