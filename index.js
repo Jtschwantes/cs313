@@ -103,6 +103,7 @@ const server = express()
         }
     })
     .delete("/items/:id", async (req, res) => {
+        const id = req.params.id;
         try {
             const client = await pool.connect()
             const result = await client.query(`DELETE FROM post WHERE id = ${id}`);
@@ -116,7 +117,6 @@ const server = express()
     })
     // .post('/getRate', calculate)
     .get('/db', async (req, res) => {
-        const id = req.params.id;
         try {
             const client = await pool.connect()
             const result = await client.query('SELECT * FROM post');
