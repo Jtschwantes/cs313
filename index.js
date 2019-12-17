@@ -65,7 +65,7 @@ const server = express()
         const id = req.params.id;
         try {
             const client = await pool.connect()
-            const result = await client.query('SELECT * FROM post');
+            const result = await client.query(`SELECT * FROM post WHERE id = ${id}`);
             // const results = { 'results': (result) ? result.rows : null };
             let results = result.rows.filter(i => i.id == id);
             res.send(results);
