@@ -38,8 +38,8 @@ async function getDbRows() {
 
 const server = express()
     .use(express.static(path.join(__dirname, 'public')))
-    .use(bodyParser.urlencoded({ extended: true }))
-
+    // .use(bodyParser.urlencoded({ extended: true }))
+    .use(bodyParser.json)
     .set('views', path.join(__dirname, 'views'))
     .set('view engine', 'ejs')
 
