@@ -75,40 +75,32 @@ const server = express()
         }
     })
     .post("/items", (req, res) => {
-        let search = url.parse(req.url).search.slice(1)
-        let arr = search.split("&");
-        let obj = arr.reduce((acc, cur) => {
-            cur = cur.replace(/%20/g, " ").split('=');
-            acc[cur[0]] = cur[1];
-            return acc;
-        }, {})
-        // add new item to array
-        data.push(obj)
+        let item = req.body
+        try {
+            const client = await pool.connect()
+            await client.query(`INSERT INTO post(title, body) VALUES (${item.title}, ${item.body})`);
+            // const results = { 'results': (result) ? result.rows : null }
+            res.send(item);
+            client.release();
+        } catch (err) {
+            console.error(err);
+            throw err;
+        }
         // return updated list
-        res.json(data);
     })
     .put("/items/:id", async (req, res) => {
         const id = req.params.id;
-
-        const item = data.find(i => i.id === id);
-        if (item === undefined) {
-            res.json({ message: `item ${id} doesn't exist`});
-            return;
+        let item = req.body;
+        try {
+            const client = await pool.connect()
+            await client.query(`INSERT INTO post(title, body) VALUES (${item.title}, ${item.body})`);
+            await client.query(`DELETE FROM post WHERE id = ${id}`)
+            res.send(item);
+            client.release();
+        } catch (err) {
+            console.error(err);
+            throw err;
         }
-
-        data = data.filter(i => i.id != id)
-        
-        let search = url.parse(req.url).search.slice(1)
-        let arr = search.split("&");
-        let obj = arr.reduce((acc, cur) => {
-            cur = cur.replace(/%20/g, " ").split('=');
-            acc[cur[0]] = cur[1];
-            return acc;
-        }, {})
-        obj["id"] = id;
-        data.push(obj);
-
-        res.json(data);
     })
     .delete("/items/:id", async (req, res) => {
         try {
