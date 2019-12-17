@@ -42,8 +42,8 @@
     <script>
     async function makePost() {
         let obj = {};
-        obj[body] = document.querySelector("#body").innerHTML;
-        obj[title] = document.querySelector("#title").innerHTML;
+        obj[body] = document.querySelector("#body").value;
+        obj[title] = document.querySelector("#title").value;
         console.log(JSON.stringify(obj))
         let url = "https://aqueous-citadel-20899.herokuapp.com/items"
         // fetch(url, {
