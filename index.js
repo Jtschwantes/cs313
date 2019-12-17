@@ -67,7 +67,7 @@ const server = express()
             const client = await pool.connect()
             const result = await client.query(`SELECT * FROM post WHERE id = ${id}`);
             // const results = { 'results': (result) ? result.rows : null };
-            res.send(result);
+            res.send(result.rows);
             client.release();
         } catch (err) {
             console.error(err);
