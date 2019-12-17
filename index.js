@@ -11,7 +11,7 @@ const pool = new Pool({
   ssl: true
 });
 
-let data = require('./data.js'); ///index.js
+// let data = require('./data.js'); ///index.js
 
 // function calculate(req, res) {
 //     const {weight, type} = req.body;
@@ -44,7 +44,9 @@ const server = express()
     .set('views', path.join(__dirname, 'views'))
     .set('view engine', 'ejs')
 
-    .get('/', (req, res) => res.render('pages/index'))
+    .get('/', (req, res) => res.render('pages/index.ejs'))
+    .get('/createPost', (req, res) => res.render('pages/createPost.ejs'))
+    .get('/navBar', (req, res) => res.render('pages/navBar.ejs'))
     .get('/error', (req, res) => res.render('pages/error.ejs'))
 
     .get('/items', async (req, res) => {
