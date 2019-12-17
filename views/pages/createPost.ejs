@@ -48,7 +48,9 @@
         let url = "https://aqueous-citadel-20899.herokuapp.com/items"
         fetch(url, {
             method: 'POST',
-            body: obj,
+            mode: 'cors',
+            cache: 'default',
+            body: JSON.stringify(obj),
             headers: {'Content-Type': 'application/json'}
         })
         .then(console.log)
