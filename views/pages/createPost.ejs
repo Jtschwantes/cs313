@@ -44,6 +44,8 @@
         let obj = {};
         obj[body] = document.querySelector("#body").innerHTML;
         obj[title] = document.querySelector("#title").innerHTML;
+        console.log(obj.title)
+        console.log(obj.body)
         let url = "https://aqueous-citadel-20899.herokuapp.com/items"
         fetch(url, {
             method: 'POST',
