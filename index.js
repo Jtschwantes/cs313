@@ -93,7 +93,7 @@ const server = express()
         let item = req.body;
         try {
             const client = await pool.connect()
-            await client.query(`INSERT INTO post(title, body) VALUES (${item.title}, ${item.body})`);
+            await client.query(`INSERT INTO post(title, body) VALUES ('${item.title}', '${item.body}')`);
             await client.query(`DELETE FROM post WHERE id = ${id}`)
             res.send(item);
             client.release();
