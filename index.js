@@ -113,11 +113,11 @@ const server = express()
     .delete("/items/:id", (req, res) => {
         try {
             const client = await pool.connect()
-            const result = await client.query('SELECT * FROM post');
+            const result = await client.query(`DELETE FROM post WHERE id = ${id}`);
             const results = { 'results': (result) ? result.rows : null };
             //   res.render('pages/db', results );
-            client.release();
             res.send(results)
+            client.release();
         } catch (err) {
             console.error(err);
             res.send(err);
