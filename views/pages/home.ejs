@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
@@ -48,19 +47,7 @@
         <li><a href="#about">About</a></li>
     </ul>
 
-    <div class="container">
-        <h1>Create a Post</h1>
-        <div class="md-form">
-            <form>
-                <!-- <i class="fas fa-pencil-alt prefix"></i> -->
-                <textarea id="form8" class="md-textarea form-control" rows="1">Add an interesting title</textarea>
-                <br />
-                <textarea id="form8" class="md-textarea form-control" rows="4">Explain your idea</textarea>
-                <br />
-                <button type="button" value="Submit Post">Submit Post</button>
-            </form>
-        </div>
-    </div>
+
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
@@ -71,6 +58,13 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
         crossorigin="anonymous"></script>
-</body>
 
+    <script>
+    const url = 'https://aqueous-citadel-20899.herokuapp.com/items'
+    fetch(url)
+    .then(data => data.json())
+    .then(console.log)
+    .catch(console.log)
+    </script>
+</body>
 </html>

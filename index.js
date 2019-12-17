@@ -39,15 +39,14 @@ async function getDbRows() {
 const server = express()
     .use(express.static(path.join(__dirname, 'public')))
     .use(bodyParser.urlencoded({ extended: true }))
-    // .use(bodyParser.json())
 
     .set('views', path.join(__dirname, 'views'))
     .set('view engine', 'ejs')
 
     .get('/', (req, res) => res.render('pages/index.ejs'))
     .get('/createPost', (req, res) => res.render('pages/createPost.ejs'))
-    .get('/navBar', (req, res) => res.render('pages/navBar.ejs'))
     .get('/error', (req, res) => res.render('pages/error.ejs'))
+    .get('/home', (req, res) => res.render('pages/home.ejs'))
 
     .get('/items', async (req, res) => {
         try {
