@@ -64,12 +64,10 @@
 </head>
 
 <body>
-
     <ul>
-        <li><a href="#home">Home</a></li>
-        <li><a href="#news">News</a></li>
-        <li><a href="#contact">Contact</a></li>
-        <li><a href="#about">About</a></li>
+        <li><a href="https://aqueous-citadel-20899.herokuapp.com/home">Board</a></li>
+        <li><a href="https://aqueous-citadel-20899.herokuapp.com/createPost">Post</a></li>
+        <li><a href="https://aqueous-citadel-20899.herokuapp.com/about">About</a></li>
     </ul>
 
     <h1>Test Title</h1>
@@ -141,7 +139,7 @@
 
         async function populatePage(data) {
             data.forEach(datum => {
-                document.body.insertAdjacentHTML('beforeend', `<h1>${datum.title}</h1><p>${datum.body}</p>`);
+                document.getElementById("#cont").insertAdjacentHTML('beforeend', `<div class="cards"><h4><b>${datum[title]}</b></h4><p>${datum[body]}</p></div>`);
             })
         }
     </script>
