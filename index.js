@@ -48,6 +48,7 @@ const server = express()
     .get('/error', (req, res) => res.render('pages/error.ejs'))
     .get('/home', (req, res) => res.render('pages/home.ejs'))
     .get('/about', (req, res) => res.render('pages/about.ejs'))
+    .get('/viewItem/:id', (req, res) => {})
 
     .get('/items', async (req, res) => {
         try {
