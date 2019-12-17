@@ -47,6 +47,7 @@ const server = express()
     .get('/createPost', (req, res) => res.render('pages/createPost.ejs'))
     .get('/error', (req, res) => res.render('pages/error.ejs'))
     .get('/home', (req, res) => res.render('pages/home.ejs'))
+    .get('/about', (req, res) => res.render('pages/about.ejs'))
 
     .get('/items', async (req, res) => {
         try {
