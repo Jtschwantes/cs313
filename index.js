@@ -78,6 +78,7 @@ const server = express()
         let item = req.body
         try {
             const client = await pool.connect()
+            console.log(`${item.title} ----- ${item.body}`)
             await client.query(`INSERT INTO post(title, body) VALUES (${item.title}, ${item.body})`);
             // const results = { 'results': (result) ? result.rows : null }
             res.send(item);
