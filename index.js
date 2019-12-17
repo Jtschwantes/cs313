@@ -74,7 +74,7 @@ const server = express()
             throw err;
         }
     })
-    .post("/items", (req, res) => {
+    .post("/items", async (req, res) => {
         let item = req.body
         try {
             const client = await pool.connect()
