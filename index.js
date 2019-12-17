@@ -106,9 +106,8 @@ const server = express()
         try {
             const client = await pool.connect()
             const result = await client.query(`DELETE FROM post WHERE id = ${id}`);
-            const results = { 'results': (result) ? result.rows : null };
             //   res.render('pages/db', results );
-            res.send(results)
+            res.send(result)
             client.release();
         } catch (err) {
             console.error(err);
