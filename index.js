@@ -78,6 +78,7 @@ const server = express()
     })
     .post("/items", async (req, res) => {
         let item = req.body
+        console.log(req.body);
         try {
             const client = await pool.connect()
             await client.query(`INSERT INTO post(title, body) VALUES ('${item.title}', '${item.body}')`);
@@ -93,7 +94,6 @@ const server = express()
     .put("/items/:id", async (req, res) => {
         const id = req.params.id;
         let item = req.body;
-        console.log(req.body);
         try {
             const client = await pool.connect()
             await client.query(`INSERT INTO post(title, body) VALUES ('${item.title}', '${item.body}')`);
