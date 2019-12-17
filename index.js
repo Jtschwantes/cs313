@@ -67,19 +67,12 @@ const server = express()
             const client = await pool.connect()
             const result = await client.query(`SELECT * FROM post WHERE id = ${id}`);
             // const results = { 'results': (result) ? result.rows : null };
-            let results = result.rows.filter(i => i.id == id);
             res.send(results);
             client.release();
         } catch (err) {
             console.error(err);
             throw err;
         }
-
-        // if (item) {
-        //     res.json(item);
-        // } else {
-        //     res.json({ message: `item ${id} doesn't exist`})
-        // }
     })
     .post("/items", (req, res) => {
         let search = url.parse(req.url).search.slice(1)
@@ -118,9 +111,17 @@ const server = express()
         res.json(data);
     })
     .delete("/items/:id", (req, res) => {
-        const id = req.params.id;
-        data = data.filter(i => i.id != id)
-        res.json(data);
+        try {
+            const client = await pool.connect()
+            const result = await client.query('SELECT * FROM post');
+            const results = { 'results': (result) ? result.rows : null };
+            //   res.render('pages/db', results );
+            client.release();
+            res.send(results)
+        } catch (err) {
+            console.error(err);
+            res.send(err);
+        }
     })
     // .post('/getRate', calculate)
     .get('/db', async (req, res) => {
