@@ -68,12 +68,7 @@
 
     async function populatePage(data) {
         data.forEach(datum => {
-            var para = document.createElement("p");
-            var node = document.createTextNode(JSON.stringify(datum));
-            para.appendChild(node);
-
-            var element = document.getElementById("div1");
-            element.appendChild(para);
+            document.body.insertAdjacentHTML( 'beforeend', `<p>${JSON.stringify(datum)}</p>' );
         })
     }
     </script>
