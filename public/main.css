@@ -1,11 +1,55 @@
 body {
-    background-image: url('./usps.jpg');
-    background-repeat: no-repeat, no-repeat;
+    background-color: #555555;
+    color: #eeeeee;
+    background-image: linear-gradient(to bottom right, #393939, #557777)
 }
 
-p {
-    font-family: Arial, Helvetica, sans-serif;
-    font-weight: bold;
-    color: #aa2222;
+ul {
+    list-style-type: none;
+    margin: 10px, 10px;
+    padding: 10px, 10px;
+    overflow: hidden;
+    background-color: #2d2d2d;
+}
+
+li {
+    float: left;
+}
+
+li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+li a:hover {
+    background-color: #111;
+    text-decoration: none;
+}
+
+.cards {
+    background-color: #555577;
+    color: #eeeeff;
+    padding: 8px 12px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    transition: 0.3s;
+    margin: 10px 10px;
+    width: 500px;
+    height: 150px;
+    border-radius: 25px;
+}
+
+.cards:hover {
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.4);
+    background-color: #dddddd;
+    color: #222244;
+}
+
+#cont {
+    flex-wrap: wrap; 
+    display: flex;
 }
 
