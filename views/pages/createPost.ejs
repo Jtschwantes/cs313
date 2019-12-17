@@ -21,11 +21,11 @@
         <div class="md-form">
             <form>
                 <!-- <i class="fas fa-pencil-alt prefix"></i> -->
-                <textarea id="form8" class="md-textarea form-control" rows="1">Add an interesting title</textarea>
+                <textarea id="title" class="md-textarea form-control" rows="1">Add an interesting title</textarea>
                 <br />
-                <textarea id="form8" class="md-textarea form-control" rows="4">Explain your idea</textarea>
+                <textarea id="body" class="md-textarea form-control" rows="4">Explain your idea</textarea>
                 <br />
-                <button type="button" value="Submit Post">Submit Post</button>
+                <button type="button" value="Submit Post" onclick="makePost()">Submit Post</button>
             </form>
         </div>
     </div>
@@ -39,6 +39,22 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
         crossorigin="anonymous"></script>
+    <script>
+    async function makePost() {
+        let obj = {};
+        obj[body] = document.querySelector("#body").innerHTML;
+        obj[title] = document.querySelector("#title").innerHTML;
+        let url = "https://aqueous-citadel-20899.herokuapp.com/items"
+        fetch(url, {
+            method: 'POST',
+            body: JSON.stringify(obj),
+            headers: 'Content-Type: application/json'
+        })
+        .then(console.log)
+        .catch(console.log)
+    }
+    </script>
+
 </body>
 
 </html>
