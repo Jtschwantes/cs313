@@ -26,101 +26,99 @@ const server = express()
     .get('/about', (req, res) => res.render('pages/about.ejs'))
     .get('/viewItem/:id', (req, res) => {
         const id = req.params.id;
-        res.render('pages/viewItem.ejs', {id})
+        res.render('pages/viewItem.ejs', { id })
     })
     .get('/editPost/:id', (req, res) => {
         const id = req.params.id;
-        res.render('pages/editPost.ejs', {id})
+        res.render('pages/editPost.ejs', { id })
     })
-    
+
     //// /// // / / API Service / / // /// ////
     //              Server side
     .get('/items', getItems)
-    .get('/items/:id', async (req, res) => {
-        const id = req.params.id;
-        try {
-            const client = await pool.connect()
-            const result = await client.query(`SELECT * FROM post WHERE id = ${id}`);
-            // const results = { 'results': (result) ? result.rows : null };
-            res.send(result.rows);
-            client.release();
-        } catch (err) {
-            console.error(err);
-            throw err;
-        }
-    })
-    .post("/items", async (req, res) => {
-        let item = req.body
-        console.log(req.body);
-        try {
-            const client = await pool.connect()
-            await client.query(`INSERT INTO post(title, body) VALUES ('${item.title}', '${item.body}')`);
-            // const results = { 'results': (result) ? result.rows : null }
-            res.send(item);
-            client.release();
-        } catch (err) {
-            console.error(err);
-            throw err;
-        }
-        // return updated list
-    })
-    .put("/items/:id", async (req, res) => {
-        const id = req.params.id;
-        let item = req.body;
-        console.log(req.body);
-        try {
-            const client = await pool.connect()
-            await client.query(`INSERT INTO post(title, body) VALUES ('${item.title}', '${item.body}')`);
-            await client.query(`DELETE FROM post WHERE id = ${id}`)
-            res.send(item);
-            client.release();
-        } catch (err) {
-            console.error(err);
-            throw err;
-        }
-    })
-    .delete("/items/:id", async (req, res) => {
-        const id = req.params.id;
-        try {
-            const client = await pool.connect()
-            const result = await client.query(`DELETE FROM post WHERE id = ${id}`);
-            //   res.render('pages/db', results );
-            res.send(result)
-            client.release();
-        } catch (err) {
-            console.error(err);
-            res.send(err);
-        }
-    })
-    .get('/db', async (req, res) => {
-        try {
-            const client = await pool.connect()
-            const result = await client.query('SELECT * FROM post');
-            const results = { 'results': (result) ? result.rows : null };
-            //   res.render('pages/db', results );
-            res.send(results)
-            client.release();
-        } catch (err) {
-            console.error(err);
-            res.send(err);
-        }
-    })
+    .get('/items/:id', getItem)
+    .post("/items", postItem)
+    .put("/items/:id", editItem)
+    .delete("/items/:id", deleteItem)
+
     // Catch all, so any route will come here
     .get('/*', (req, res) => res.render('pages/home.ejs'))
-    .listen(PORT, () => console.log(`Listening on ${ PORT }`));
+    .listen(PORT, () => console.log(`Listening on ${PORT}`));
 
-    async function getItems(req, res) {
-        try {
-            const client = await pool.connect()
-            const result = await client.query('SELECT * FROM post');
-            // const results = { 'results': (result) ? result.rows : null };
-            const results = result.rows;
-            //   res.render('pages/db', results );
-            res.send(results);
-            client.release();
-        } catch (err) {
-            console.error(err);
-            throw err;
-        }
+
+//// /// // / / Consumed Methods / / // /// ////
+//                 For the API
+async function getItems(req, res) {
+    try {
+        const client = await pool.connect()
+        const result = await client.query('SELECT * FROM post');
+        // const results = { 'results': (result) ? result.rows : null };
+        const results = result.rows;
+        //   res.render('pages/db', results );
+        res.send(results);
+        client.release();
+    } catch (err) {
+        console.error(err);
+        throw err;
     }
-    
+}
+
+async function getItem(req, res) {
+    const id = req.params.id;
+    try {
+        const client = await pool.connect()
+        const result = await client.query(`SELECT * FROM post WHERE id = ${id}`);
+        // const results = { 'results': (result) ? result.rows : null };
+        res.send(result.rows);
+        client.release();
+    } catch (err) {
+        console.error(err);
+        throw err;
+    }
+}
+
+async function postItem(req, res) {
+    let item = req.body
+    console.log(req.body);
+    try {
+        const client = await pool.connect()
+        await client.query(`INSERT INTO post(title, body) VALUES ('${item.title}', '${item.body}')`);
+        // const results = { 'results': (result) ? result.rows : null }
+        res.send(item);
+        client.release();
+    } catch (err) {
+        console.error(err);
+        throw err;
+    }
+    // return updated list
+}
+
+async function editItem(req, res) {
+    const id = req.params.id;
+    let item = req.body;
+    console.log(req.body);
+    try {
+        const client = await pool.connect()
+        await client.query(`INSERT INTO post(title, body) VALUES ('${item.title}', '${item.body}')`);
+        await client.query(`DELETE FROM post WHERE id = ${id}`)
+        res.send(item);
+        client.release();
+    } catch (err) {
+        console.error(err);
+        throw err;
+    }
+}
+
+async function deleteItem(req, res) {
+    const id = req.params.id;
+    try {
+        const client = await pool.connect()
+        const result = await client.query(`DELETE FROM post WHERE id = ${id}`);
+        //   res.render('pages/db', results );
+        res.send(result)
+        client.release();
+    } catch (err) {
+        console.error(err);
+        res.send(err);
+    }
+}
