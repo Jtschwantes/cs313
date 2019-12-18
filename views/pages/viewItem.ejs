@@ -35,6 +35,7 @@
             .catch(console.log)
 
         function populatePage(data) {
+            console.log(data);
             document.body.insertAdjacentHTML('beforeend',`<h1>${data.title}</h1><p>${data.body}</p>`);
         }
     </script>
