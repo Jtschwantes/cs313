@@ -31,7 +31,7 @@ const server = express()
         const id = req.params.id;
         res.render('pages/editPost.ejs', {id})
     })
-    .get('/*', (req, res) => res.render('pages/*'))
+    .get('/*', (req, res) => res.render('pages/home.ejs'))
 
     .get('/items', async (req, res) => {
         try {
