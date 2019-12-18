@@ -47,6 +47,7 @@
             .catch(console.log)
 
     async function populatePage(data) {
+        console.log(data)
         document.querySelector("#body").value = data.body;
         document.querySelector("#title").value = data.title;
     }
