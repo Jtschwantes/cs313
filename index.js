@@ -45,6 +45,7 @@ const server = express()
 
     .get('/', (req, res) => res.render('pages/index.ejs'))
     .get('/createPost', (req, res) => res.render('pages/createPost.ejs'))
+    .get('/createPost', (req, res) => res.render('pages/editPost.ejs'))
     .get('/error', (req, res) => res.render('pages/error.ejs'))
     .get('/home', (req, res) => res.render('pages/home.ejs'))
     .get('/about', (req, res) => res.render('pages/about.ejs'))
@@ -122,7 +123,6 @@ const server = express()
             res.send(err);
         }
     })
-    // .post('/getRate', calculate)
     .get('/db', async (req, res) => {
         try {
             const client = await pool.connect()
