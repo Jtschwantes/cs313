@@ -52,6 +52,7 @@
             obj['title'] = document.querySelector("#title").value;
             let url = "https://aqueous-citadel-20899.herokuapp.com/items/<%=id%>"
             fetch(url, {
+                method: 'PUT',
                 body: JSON.stringify(obj),
                 headers: {
                     'Accept': 'application/json, text/plain, */*',
