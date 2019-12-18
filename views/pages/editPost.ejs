@@ -48,8 +48,10 @@
 
     async function populatePage(data) {
         console.log(data)
-        document.querySelector("#body").value = data.body;
-        document.querySelector("#title").value = data.title;
+        console.log(data[0])
+        console.log(data[0].body)
+        document.querySelector("#body").value = data[0].body;
+        document.querySelector("#title").value = data[0].title;
     }
 
     async function submitEdit() {
