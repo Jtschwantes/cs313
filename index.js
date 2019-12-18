@@ -31,8 +31,7 @@ const server = express()
         const id = req.params.id;
         res.render('pages/editPost.ejs', {id})
     })
-    .get('/*', (req, res) => res.render('pages/home.ejs'))
-
+    
     .get('/items', async (req, res) => {
         try {
             const client = await pool.connect()
@@ -116,5 +115,7 @@ const server = express()
             res.send(err);
         }
     })
-
-server.listen(PORT, () => console.log(`Listening on ${ PORT }`));
+    
+    .get('/*', (req, res) => res.render('pages/home.ejs'))
+    .listen(PORT, () => console.log(`Listening on ${ PORT }`));
+    
