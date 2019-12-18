@@ -7,22 +7,23 @@
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="/main.css">
     <style>
-    .test {
-        background-color: #333333;
-        color: #eeeeee;
-        text-align: center;
-        width: 200px;
-        height: 40px;
-        border-radius: 20px;
-        margin: 5px 5px;
-        transition: 0.3s;
-    }
+        .test {
+            background-color: #333333;
+            color: #eeeeee;
+            text-align: center;
+            width: 200px;
+            height: 40px;
+            border-radius: 20px;
+            margin: 15px 15px;
+            margin: 15px 15px;
+            transition: 0.3s;
+        }
 
-    .test:hover {
-        background-color: #ffffff;
-        color: #222200;
-        box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.4);
-    }
+        .test:hover {
+            background-color: #ffffff;
+            color: #222200;
+            box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.4);
+        }
     </style>
 </head>
 
@@ -34,22 +35,22 @@
     </ul>
     <div class="container">
     </div>
-    
+
     <div class="container">
-        <div class="test" style="float: left;">Edit Post</div>
-        <div class="test" style="float: right;">Delete Post</div>
+        <div class="test" style="float: left;" onclick="editPost()">Edit Post</div>
+        <div class="test" style="float: right;" onclick="deletePost()">Delete Post</div>
         <!-- <button style="float: left; margin: 20px 20px;">Delete Post</button>
         <button style="float: right; margin: 20px 20px">Edit Post</button> -->
     </div>
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-    crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-    crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-    crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
     <script>
         const url = `https://aqueous-citadel-20899.herokuapp.com/items/<%=id%>`
         fetch(url)
@@ -58,8 +59,28 @@
             .catch(console.log)
 
         function populatePage(data) {
-            document.querySelectorAll(".container")[0].insertAdjacentHTML('beforeend',`<h1>${data[0].title}</h1><p>${data[0].body}</p>`);
+            document.querySelectorAll(".container")[0].insertAdjacentHTML('beforeend', `<h1>${data[0].title}</h1><p>${data[0].body}</p>`);
+        }
+
+        async function deletePost() {
+            fetch(`https://aqueous-citadel-20899.herokuapp.com/items/<%=id%>`, {
+                method: 'DELETE',
+                // mode: 'cors',
+                // cache: 'default',
+                body: JSON.stringify(obj),
+                headers: {
+                    'Accept': 'application/json, text/plain, */*',
+                    'Content-Type': 'application/json'
+                }
+            })
+                .then(d => { location.href = 'https://aqueous-citadel-20899.herokuapp.com/home' })
+                .catch(console.log)
+        }
+
+        async function editPost() {
+
         }
     </script>
 </body>
+
 </html>

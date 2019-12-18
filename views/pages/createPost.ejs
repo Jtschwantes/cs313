@@ -44,7 +44,6 @@
         let obj = {};
         obj['body'] = document.querySelector("#body").value;
         obj['title'] = document.querySelector("#title").value;
-        console.log(JSON.stringify(obj))
         let url = "https://aqueous-citadel-20899.herokuapp.com/items"
         fetch(url, {
             method: 'POST',
@@ -56,8 +55,10 @@
                 'Content-Type': 'application/json'
             }
         })
-        .then(console.log)
+        .then(d => {location.href = `https://aqueous-citadel-20899.herokuapp.com/home`})
         .catch(console.log)
+
+
     }
     </script>
 
