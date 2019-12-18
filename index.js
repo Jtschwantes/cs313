@@ -1,52 +1,27 @@
+// Package Imports
 const express = require('express');
 const path = require('path');
 const url = require('url');
 const bodyParser = require('body-parser');
+const { Pool } = require('pg');
+const pool = new Pool({
+    connectionString: process.env.DATABASE_URL,
+    ssl: true
+});
 
 const PORT = process.env.PORT || 5000;
 
-const { Pool } = require('pg');
-const pool = new Pool({
-  connectionString: process.env.DATABASE_URL,
-  ssl: true
-});
-
-// let data = require('./data.js'); ///index.js
-
-// function calculate(req, res) {
-//     const {weight, type} = req.body;
-//     let price = conversions[type][weight];
-//     let name = conversions[type].name;
-//     if (price !== undefined) return res.render('pages/rate.ejs', {weight, name, price});
-//     else res.render('pages/error.ejs', {weight, name})
-// }
-
-async function getDbRows() {
-    try {
-        const client = await pool.connect()
-        const result = await client.query('SELECT * FROM post');
-        // const results = { 'results': (result) ? result.rows : null };
-        const results = result.rows;
-        //   res.render('pages/db', results );
-        client.release();
-        return results;
-    } catch (err) {
-        console.error(err);
-        throw err;
-    }
-} 
-
+// Server Logic
 const server = express()
+    // Server setup stuff
     .use(express.static(path.join(__dirname, 'public')))
-    // .use(bodyParser.urlencoded({ extended: true }))
     .use(bodyParser.json())
     .set('views', path.join(__dirname, 'views'))
     .set('view engine', 'ejs')
 
-    .get('/', (req, res) => res.render('pages/index.ejs'))
+    // "Static" Pages
     .get('/createPost', (req, res) => res.render('pages/createPost.ejs'))
     .get('/error', (req, res) => res.render('pages/error.ejs'))
-    .get('/home', (req, res) => res.render('pages/home.ejs'))
     .get('/about', (req, res) => res.render('pages/about.ejs'))
     .get('/viewItem/:id', (req, res) => {
         const id = req.params.id;
@@ -56,6 +31,7 @@ const server = express()
         const id = req.params.id;
         res.render('pages/editPost.ejs', {id})
     })
+    .get('/', (req, res) => res.render('pages/*'))
 
     .get('/items', async (req, res) => {
         try {
