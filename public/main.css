@@ -44,6 +44,7 @@ li a:hover {
     width: 500px;
     height: 150px;
     border-radius: 25px;
+    overflow-y: scroll;
 }
 
 .cards:hover {
