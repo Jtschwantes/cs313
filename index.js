@@ -19,9 +19,10 @@ const server = express()
     .set('views', path.join(__dirname, 'views'))
     .set('view engine', 'ejs')
 
-    // "Static" Pages
-    .get('/createPost', (req, res) => res.render('pages/createPost.ejs'))
+    //// /// // / / "Static" Pages / / // /// ////
+    //                Client Side
     .get('/error', (req, res) => res.render('pages/error.ejs'))
+    .get('/createPost', (req, res) => res.render('pages/createPost.ejs'))
     .get('/about', (req, res) => res.render('pages/about.ejs'))
     .get('/viewItem/:id', (req, res) => {
         const id = req.params.id;
@@ -32,20 +33,9 @@ const server = express()
         res.render('pages/editPost.ejs', {id})
     })
     
-    .get('/items', async (req, res) => {
-        try {
-            const client = await pool.connect()
-            const result = await client.query('SELECT * FROM post');
-            // const results = { 'results': (result) ? result.rows : null };
-            const results = result.rows;
-            //   res.render('pages/db', results );
-            res.send(results);
-            client.release();
-        } catch (err) {
-            console.error(err);
-            throw err;
-        }
-    })
+    //// /// // / / API Service / / // /// ////
+    //              Server side
+    .get('/items', getItems)
     .get('/items/:id', async (req, res) => {
         const id = req.params.id;
         try {
@@ -115,7 +105,22 @@ const server = express()
             res.send(err);
         }
     })
-    
+    // Catch all, so any route will come here
     .get('/*', (req, res) => res.render('pages/home.ejs'))
     .listen(PORT, () => console.log(`Listening on ${ PORT }`));
+
+    async function getItems(req, res) {
+        try {
+            const client = await pool.connect()
+            const result = await client.query('SELECT * FROM post');
+            // const results = { 'results': (result) ? result.rows : null };
+            const results = result.rows;
+            //   res.render('pages/db', results );
+            res.send(results);
+            client.release();
+        } catch (err) {
+            console.error(err);
+            throw err;
+        }
+    }
     
