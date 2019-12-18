@@ -56,6 +56,7 @@
         obj['body'] = document.querySelector("#body").value;
         obj['title'] = document.querySelector("#title").value;
         let url = "https://aqueous-citadel-20899.herokuapp.com/items/<%=id%>"
+        console.log(obj)
         fetch(url, {
             method: 'PUT',
             // mode: 'cors',
