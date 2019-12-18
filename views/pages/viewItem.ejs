@@ -6,50 +6,40 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="/main.css">
-    <style>
-        .test {
-            background-color: #333333;
-            color: #eeeeee;
-            text-align: center;
-            width: 200px;
-            height: 40px;
-            border-radius: 20px;
-            margin: 15px 15px;
-            margin: 15px 15px;
-            transition: 0.3s;
-        }
-        
-        .test:hover {
-            background-color: #ffffff;
-            color: #222200;
-            box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.4);
-        }
-        </style>
 </head>
+
 <body style="background-image: linear-gradient(to bottom right, #393939, #777755);">
+    <!-- Header List -->
     <ul>
         <li><a href="https://aqueous-citadel-20899.herokuapp.com/home">Board</a></li>
         <li><a href="https://aqueous-citadel-20899.herokuapp.com/createPost">Post</a></li>
         <li><a href="https://aqueous-citadel-20899.herokuapp.com/about">About</a></li>
     </ul>
+
+    <!-- Container to be populated by data -->
     <div class="container">
     </div>
 
+    <!-- Buttons for editing and deleting -->
     <div class="container">
-        <div class="test" style="float: left;" onclick="editPost()">Edit Post</div>
-        <div class="test" style="float: right;" onclick="deletePost()">Delete Post</div>
+        <div class="but" style="float: left;" onclick="editPost()">Edit Post</div>
+        <div class="but" style="float: right;" onclick="deletePost()">Delete Post</div>
     </div>
+
     <script>
+        // Call API For individual item
         const url = `https://aqueous-citadel-20899.herokuapp.com/items/<%=id%>`
         fetch(url)
             .then(data => data.json())
             .then(populatePage)
             .catch(console.log)
 
+        // Populates the container with data
         function populatePage(data) {
             document.querySelectorAll(".container")[0].insertAdjacentHTML('beforeend', `<h1>${data[0].title}</h1><p>${data[0].body}</p>`);
         }
 
+        // If "Delete" is pressed
         async function deletePost() {
             fetch(`https://aqueous-citadel-20899.herokuapp.com/items/<%=id%>`, {
                 method: 'DELETE',
@@ -58,14 +48,14 @@
                     'Content-Type': 'application/json'
                 }
             })
-                .then(d => { location.href = 'https://aqueous-citadel-20899.herokuapp.com/home' })
-                .catch(console.log)
+            .then(d => { location.href = 'https://aqueous-citadel-20899.herokuapp.com/home' })
+            .catch(console.log)
         }
-
+        
+        // If "Edit" is pressed
         async function editPost() {
             location.href = `https://aqueous-citadel-20899.herokuapp.com/editPost/<%=id%>`;
         }
     </script>
 </body>
-
 </html>

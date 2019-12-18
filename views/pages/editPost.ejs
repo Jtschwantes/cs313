@@ -9,13 +9,14 @@
 </head>
 
 <body style="background-image: linear-gradient(to bottom right, #393939, #558855)">
-
+    <!-- Nav bar -->
     <ul>
         <li><a href="https://aqueous-citadel-20899.herokuapp.com/home">Board</a></li>
         <li><a href="https://aqueous-citadel-20899.herokuapp.com/createPost">Post</a></li>
         <li><a href="https://aqueous-citadel-20899.herokuapp.com/about">About</a></li>
     </ul>
 
+    <!-- Container that prompts the data to be sent to the server -->
     <div class="container">
         <h1>Edit Post</h1>
         <div class="md-form">
@@ -29,42 +30,37 @@
             </form>
         </div>
     </div>
+
     <script>
+        // Gets the data for the item, calls populate page
         const url = 'https://aqueous-citadel-20899.herokuapp.com/items/<%=id%>'
         fetch(url)
             .then(data => data.json())
             .then(populatePage)
             .catch(console.log)
 
-    async function populatePage(data) {
-        console.log(data)
-        console.log(data[0])
-        console.log(data[0].body)
-        document.querySelector("#body").value = data[0].body;
-        document.querySelector("#title").value = data[0].title;
-    }
+        // Populates the prompt with the old data
+        async function populatePage(data) {
+            document.querySelector("#body").value = data[0].body;
+            document.querySelector("#title").value = data[0].title;
+        }
 
-    async function submitEdit() {
-        let obj = {};
-        obj['body'] = document.querySelector("#body").value;
-        obj['title'] = document.querySelector("#title").value;
-        let url = "https://aqueous-citadel-20899.herokuapp.com/items/<%=id%>"
-        console.log(obj)
-        fetch(url, {
-            method: 'PUT',
-            // mode: 'cors',
-            // cache: 'default',
-            body: JSON.stringify(obj),
-            headers: {
-                'Accept': 'application/json, text/plain, */*',
-                'Content-Type': 'application/json'
-            }
-        })
-        .then(d => {location.href = `https://aqueous-citadel-20899.herokuapp.com/home`})
-        .catch(console.log)
-    }
+        // Submits the PUT request
+        async function submitEdit() {
+            let obj = {};
+            obj['body'] = document.querySelector("#body").value;
+            obj['title'] = document.querySelector("#title").value;
+            let url = "https://aqueous-citadel-20899.herokuapp.com/items/<%=id%>"
+            fetch(url, {
+                body: JSON.stringify(obj),
+                headers: {
+                    'Accept': 'application/json, text/plain, */*',
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(d => { location.href = `https://aqueous-citadel-20899.herokuapp.com/home` })
+            .catch(console.log)
+        }
     </script>
-
 </body>
-
 </html>

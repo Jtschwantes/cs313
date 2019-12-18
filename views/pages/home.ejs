@@ -9,36 +9,39 @@
 </head>
 
 <body>
+    <!-- Nav bar -->
     <ul>
         <li><a href="https://aqueous-citadel-20899.herokuapp.com/home">Board</a></li>
         <li><a href="https://aqueous-citadel-20899.herokuapp.com/createPost">Post</a></li>
         <li><a href="https://aqueous-citadel-20899.herokuapp.com/about">About</a></li>
     </ul>
 
+    <!-- Container to be filled with data -->
     <div class="container">
         <h1>Idea board</h1>
         <p>You can post any ideas that you have but might not have the means to create. You could have an idea for an interesting website, a new invention, or anything that you think would improve the world! Share your ideas by clicking the "Post" tab in the navigation bar or clicking on the button below.</p>
     <div id="cont">
     </div>
 
-
     <script>
+        // Gets all items calls populatePage
         const url = 'https://aqueous-citadel-20899.herokuapp.com/items'
         fetch(url)
             .then(data => data.json())
             .then(populatePage)
             .catch(console.log)
 
+        // Populates container with data
         async function populatePage(data) {
             data.forEach(datum => {
                 document.getElementById("cont").insertAdjacentHTML('beforeend', `<div class="cards" onclick="viewCard(${datum.id})"><h4><b>${datum.title}</b></h4><p>${datum.body}</p></div>`);
             })
         }
 
+        // Link if a card is pressed
         async function viewCard(num) {
             location.href = `https://aqueous-citadel-20899.herokuapp.com/viewItem/${num}`;
         }
     </script>
 </body>
-
 </html>

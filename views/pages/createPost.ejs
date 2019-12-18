@@ -9,18 +9,18 @@
 </head>
 
 <body style="background-image: linear-gradient(to bottom right, #393939, #885555)">
-
+    <!-- Nav Bar -->
     <ul>
         <li><a href="https://aqueous-citadel-20899.herokuapp.com/home">Board</a></li>
         <li><a href="https://aqueous-citadel-20899.herokuapp.com/createPost">Post</a></li>
         <li><a href="https://aqueous-citadel-20899.herokuapp.com/about">About</a></li>
     </ul>
 
+    <!-- Container that prompts for data -->
     <div class="container">
         <h1>Create a Post</h1>
         <div class="md-form">
             <form>
-                <!-- <i class="fas fa-pencil-alt prefix"></i> -->
                 <textarea id="title" class="md-textarea form-control" rows="1">Add an interesting title</textarea>
                 <br />
                 <textarea id="body" class="md-textarea form-control" rows="4">Explain your idea</textarea>
@@ -29,29 +29,25 @@
             </form>
         </div>
     </div>
+
     <script>
-    async function makePost() {
-        let obj = {};
-        obj['body'] = document.querySelector("#body").value;
-        obj['title'] = document.querySelector("#title").value;
-        let url = "https://aqueous-citadel-20899.herokuapp.com/items"
-        fetch(url, {
-            method: 'POST',
-            // mode: 'cors',
-            // cache: 'default',
-            body: JSON.stringify(obj),
-            headers: {
-                'Accept': 'application/json, text/plain, */*',
-                'Content-Type': 'application/json'
-            }
-        })
-        .then(d => {location.href = `https://aqueous-citadel-20899.herokuapp.com/home`})
-        .catch(console.log)
-
-
-    }
+        // Makes the POST request to the API
+        async function makePost() {
+            let obj = {};
+            obj['body'] = document.querySelector("#body").value;
+            obj['title'] = document.querySelector("#title").value;
+            let url = "https://aqueous-citadel-20899.herokuapp.com/items"
+            fetch(url, {
+                method: 'POST',
+                body: JSON.stringify(obj),
+                headers: {
+                    'Accept': 'application/json, text/plain, */*',
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(d => { location.href = `https://aqueous-citadel-20899.herokuapp.com/home` })
+            .catch(console.log)
+        }
     </script>
-
 </body>
-
 </html>
