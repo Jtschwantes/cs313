@@ -15,7 +15,6 @@
         <li><a href="https://aqueous-citadel-20899.herokuapp.com/about">About</a></li>
     </ul>
     <div class="container">
-<%=id%>
 
 
     </div>
@@ -29,11 +28,15 @@
     integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
     crossorigin="anonymous"></script>
     <script>
-        // const url = `https://aqueous-citadel-20899.herokuapp.com/items/<%=id%>`
-        // fetch(url)
-        //     .then(data => data.json())
-        //     .then(populatePage)
-        //     .catch(console.log)
+        const url = `https://aqueous-citadel-20899.herokuapp.com/items/<%=id%>`
+        fetch(url)
+            .then(data => data.json())
+            .then(populatePage)
+            .catch(console.log)
+
+        function populatePage(data) {
+            document.getElementById("cont").insertAdjacentHTML('beforeend',`<h1>${data.title}</h1><p>${data.body}</p>`);
+        }
     </script>
 </body>
 </html>
